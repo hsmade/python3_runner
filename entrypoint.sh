@@ -10,13 +10,13 @@ shift
 PROG=$1
 shift
 
-TOKEN=""
-if ([ -s /secrets/private_token [)
+token=""
+if ([ -s /secrets/vault [)
 then
-	TOKEN="?private_token=$(cat /secrets/private_token)"
+	. /secrets/vault
 fi
 
-git clone "${GIT}${TOKEN}" /build
+git clone "${GIT}${token}" /build
 cd /build
 test -f requirements.txt && pip install -r requirements.txt
 python "$PROG" $@
