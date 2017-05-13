@@ -11,9 +11,9 @@ PROG=$1
 shift
 
 TOKEN=""
-if ([ -n "$VAULT_ADDR" -a -n "$VAULT_TOKEN" -a -n "$TOKEN_PATH" ])
+if ([ -s /secrets/private_token [)
 then
-	TOKEN="?private_token=$(vault read $TOKEN_PATH)"
+	TOKEN="?private_token=$(cat /secrets/private_token)"
 fi
 
 git clone "${GIT}${TOKEN}" /build
