@@ -9,7 +9,14 @@ GIT=$1
 shift
 PROG=$1
 shift
-git clone "$GIT" /build
+
+TOKEN=""
+if ([ -n "$VAULT_ADDR" -a -n "$VAULT_TOKEN" -a -n "$TOKEN_PATH" ])
+then
+	TOKEN="?private_token=$(vault read $TOKEN_PATH)"
+fi
+
+git clone "${GIT}${TOKEN}" /build
 cd /build
 test -f requirements.txt && pip install -r requirements.txt
 python "$PROG" $@
