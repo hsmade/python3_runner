@@ -11,7 +11,7 @@ PROG=$1
 shift
 
 token=""
-if ([ -s /secrets/vault [)
+if ([ -s /secrets/vault ])
 then
 	. /secrets/vault
 fi
